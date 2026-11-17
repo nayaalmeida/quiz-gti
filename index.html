@@ -6,11 +6,24 @@
   <title>Quiz GTI</title>
   <meta name="description" content="Quiz de estudo gamificado para Gestão de Segurança Cibernética, Fundamentos de Segurança e Criptografia, Governança em TI, Estudos Avançados em GTI e simulado do ENADE.">
   <meta name="theme-color" content="#f6f1e7">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Quiz GTI">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Quiz GTI">
+  <meta property="og:description" content="Questões comentadas para as provas do 5º período de GTI e para o ENADE.">
+  <meta property="og:image" content="https://nayaalmeida.github.io/quiz-gti/icons/og.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1b3a'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='%23ffb84d' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <a class="pular" href="#app">Pular para o conteúdo</a>
@@ -38,6 +51,7 @@
         </a>
       </div>
       <a class="placar" id="placar" href="#desempenho" aria-label="Seus créditos e nível"></a>
+      <button class="btn-instalar" id="btn-instalar" type="button" hidden>Instalar app</button>
       <button class="btn-icone" id="btn-tema" type="button" aria-label="Alternar tema claro/escuro" title="Alternar tema"></button>
     </nav>
   </header>
@@ -49,7 +63,7 @@
   <div class="avisos" id="avisos" aria-live="polite"></div>
   <canvas id="confete" aria-hidden="true"></canvas>
 
-  <script src="questoes.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="questoes.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

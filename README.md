@@ -85,7 +85,7 @@ Opcionais: `codigo` (trecho mostrado em bloco) e `porque` (motivo de cada altern
 
 Nas questões de múltipla escolha as alternativas são embaralhadas a cada vez. Para manter a ordem (como em "I e II, apenas" ou asserção-razão), acrescente `fixa: true`.
 
-Depois de editar, aumente o `?v=8` das linhas de `questoes.js`, `app.js` e `styles.css` no `index.html` para o navegador não usar a versão antiga em cache.
+Depois de editar, aumente o `?v=10` das linhas de `questoes.js`, `app.js` e `styles.css` no `index.html` para o navegador não usar a versão antiga em cache.
 
 ## Regras do jogo
 

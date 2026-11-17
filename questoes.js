@@ -16,11 +16,13 @@ window.CONFIG = {
 };
 
 window.DISCIPLINAS = [
-  { id: "gsc", nome: "Gestão de Segurança Cibernética", sigla: "SEG", cor: "#0f9d8a" },
-  { id: "gov", nome: "Governança em TI",                sigla: "GOV", cor: "#6d4de6" },
-  { id: "eag", nome: "Estudos Avançados em GTI",        sigla: "EAG", cor: "#e2603a" },
-  { id: "fsc", nome: "Fundamentos de Segurança da Informação e Criptografia", sigla: "FSC", cor: "#b7791f" },
-  { id: "enade", nome: "Simulado ENADE",                sigla: "ENADE", cor: "#2a6fdb" }
+  /* prof: nome do professor. foto: caminho da imagem dentro da pasta "fotos" (ex.: "fotos/humberto.jpg").
+     Sem foto, o app mostra a sigla da disciplina no lugar. */
+  { id: "gsc", nome: "Gestão de Segurança Cibernética", sigla: "SEG", cor: "#19c3a6", prof: "", foto: "" },
+  { id: "gov", nome: "Governança em TI",                sigla: "GOV", cor: "#9b7bff", prof: "", foto: "" },
+  { id: "eag", nome: "Estudos Avançados em GTI",        sigla: "EAG", cor: "#ff7a45", prof: "", foto: "" },
+  { id: "fsc", nome: "Fundamentos de Segurança da Informação e Criptografia", sigla: "FSC", cor: "#ffb84d", prof: "Prof. Humberto Caetano", foto: "fotos/humberto.jpg" },
+  { id: "enade", nome: "Simulado ENADE",                sigla: "ENADE", cor: "#4aa3ff", prof: "", foto: "" }
 ];
 
 /* Tipos de questão

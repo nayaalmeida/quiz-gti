@@ -97,6 +97,14 @@
   }
   function pct(a, b) { return b ? Math.round((a / b) * 100) : 0; }
   function hoje() { var d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function ofensiva() {
+    var set = {}; S.dias.forEach(function (d) { set[d] = true; });
+    function chave(dt) { return dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate(); }
+    var dt = new Date(), n = 0;
+    if (!set[chave(dt)]) dt.setDate(dt.getDate() - 1);
+    while (set[chave(dt)]) { n++; dt.setDate(dt.getDate() - 1); }
+    return n;
+  }
   function dificil(q) { return q.tipo === "lacuna" || q.tipo === "associacao" || q.tipo === "multipla"; }
   function erradas() { return Q.filter(function (q) { return S.q[q.id] && S.q[q.id].ok === false; }); }
   function respondidas() { return Q.filter(function (q) { return S.q[q.id]; }); }
@@ -149,11 +157,10 @@
 
   /* ---------- tema ---------- */
   function aplicarTema() {
-    var escuro = S.tema ? S.tema === "escuro"
-      : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var escuro = S.tema ? S.tema === "escuro" : true;
     document.documentElement.setAttribute("data-tema", escuro ? "escuro" : "claro");
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute("content", escuro ? "#14132b" : "#f6f1e7");
+    if (m) m.setAttribute("content", escuro ? "#0b0a22" : "#f4f1ff");
     document.getElementById("btn-tema").innerHTML = escuro
       ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
       : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
@@ -190,6 +197,34 @@
       '<i style="width:' + pct(valor, total) + "%;" + (cor ? "background:" + cor : "") + '"></i></div>';
   }
 
+
+  var MASCOTE = '<svg class="mascote" viewBox="0 0 240 250" role="img" aria-label="Byte, o gato laranja tech do Quiz GTI">' +
+    '<defs><linearGradient id="gato" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa957"/><stop offset="1" stop-color="#ff6a1a"/></linearGradient>' +
+    '<linearGradient id="corpo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a2e"/><stop offset="1" stop-color="#e2540d"/></linearGradient></defs>' +
+    '<ellipse class="m-sombra" cx="120" cy="238" rx="70" ry="8" fill="rgba(0,0,0,.35)"/>' +
+    '<g class="m-corpo">' +
+      '<path d="M44 236c0-34 30-52 76-52s76 18 76 52z" fill="url(#corpo)"/>' +
+      '<path d="M96 188c8 12 40 12 48 0" fill="none" stroke="#12103a" stroke-width="9" stroke-linecap="round"/>' +
+      '<circle cx="120" cy="212" r="13" fill="#12103a"/><path d="M114 212l4.5 4.5 8-9" fill="none" stroke="#22d3ee" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M46 92L58 26l48 34z" fill="url(#gato)"/><path d="M194 92L182 26l-48 34z" fill="url(#gato)"/>' +
+      '<path d="M62 78l5-30 24 17z" fill="#ff9fb4"/><path d="M178 78l-5-30-24 17z" fill="#ff9fb4"/>' +
+      '<path class="m-antena" d="M120 62V38" stroke="#12103a" stroke-width="4" stroke-linecap="round"/><circle class="m-led" cx="120" cy="34" r="7" fill="#22d3ee"/>' +
+      '<ellipse cx="120" cy="128" rx="80" ry="66" fill="url(#gato)"/>' +
+      '<path d="M104 70v14M120 68v18M136 70v14" stroke="#c4470a" stroke-width="5" stroke-linecap="round" opacity=".75"/>' +
+      '<path d="M40 138h24M44 156h20M200 138h-24M196 156h-20" stroke="#c4470a" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>' +
+      '<circle cx="40" cy="138" r="4" fill="#22d3ee"/><circle cx="44" cy="156" r="3.4" fill="#22d3ee"/><circle cx="200" cy="138" r="4" fill="#22d3ee"/><circle cx="196" cy="156" r="3.4" fill="#22d3ee"/>' +
+      '<rect x="60" y="102" width="120" height="48" rx="24" fill="#12103a" stroke="#22d3ee" stroke-width="2.5"/>' +
+      '<g class="m-olhos"><rect x="82" y="113" width="24" height="26" rx="12" fill="#22d3ee"/><rect x="134" y="113" width="24" height="26" rx="12" fill="#22d3ee"/>' +
+      '<circle cx="91" cy="121" r="4" fill="#fff"/><circle cx="143" cy="121" r="4" fill="#fff"/></g>' +
+      '<path d="M114 160l6 7 6-7z" fill="#ff7d9a"/><path d="M104 172q8 7 16 0q8 7 16 0" fill="none" stroke="#12103a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M86 164l-30 -5M86 170l-32 6M154 164l30 -5M154 170l32 6" stroke="#fff3e6" stroke-width="2.6" stroke-linecap="round" opacity=".85"/>' +
+    "</g></svg>";
+
+  function avatar(d) {
+    if (d.foto) return '<span class="avatar"><img src="' + esc(d.foto) + '" alt="' + esc(d.prof || d.nome) + '" loading="lazy" onerror="this.parentNode.classList.add(\'sem-foto\');this.remove()"><b>' + esc(d.sigla) + "</b></span>";
+    return '<span class="avatar sem-foto"><b>' + esc(d.sigla) + "</b></span>";
+  }
+
   function telaInicio() {
     var n = nivelDe(S.creditos), err = erradas().length, r = S.rodada;
     var cta = r
@@ -198,22 +233,26 @@
       : '<a class="btn btn-forte" href="#estudar">Começar a estudar</a>';
     if (err) cta += '<button class="btn" data-acao="revisar-erros">Revisar as que errei <span class="btn-nota">' + err + "</span></button>";
 
-    var folha = "";
-    for (var i = 0; i < 5; i++) {
-      folha += '<div class="folha-linha"><b>' + (i + 1) + "</b>";
-      for (var j = 0; j < 4; j++) folha += '<span class="bolha' + ((i * 3 + 1) % 4 === j ? " cheia" : "") + '">' + LETRAS[j] + "</span>";
-      folha += "</div>";
-    }
+    var resp = respondidas(), tent = 0, ac = 0;
+    resp.forEach(function (q) { tent += S.q[q.id].t; ac += S.q[q.id].a; });
+    var of = ofensiva();
+    function estat(icone, valor, rotulo) { return '<div class="estat"><span class="estat-ico" aria-hidden="true">' + icone + '</span><b>' + valor + "</b><span>" + rotulo + "</span></div>"; }
+    var stats = '<section class="estats" aria-label="Seus números">' +
+      estat("▦", Q.length, "questões no banco") + estat("✓", resp.length, "já respondidas") +
+      estat("%", pct(ac, tent) + "%", "taxa de acerto") + estat("⚡", S.maxCombo || 0, "melhor combo") +
+      estat("🔥", of + (of === 1 ? " dia" : " dias"), "de ofensiva") + "</section>";
 
     var cards = DISC.map(function (d) {
       var lista = Q.filter(function (q) { return q.disc === d.id; });
       var dom = dominadas(lista).length;
+      var p = pct(dom, lista.length);
       return '<article class="card disc" style="--cor:' + d.cor + '">' +
-        '<span class="disc-sigla">' + esc(d.sigla) + "</span>" +
-        "<h3>" + esc(d.nome) + "</h3>" +
-        '<p class="fraco">' + lista.length + " questões · " + dom + " dominadas</p>" +
+        '<div class="disc-topo">' + avatar(d) +
+        '<div><h3>' + esc(d.nome) + '</h3>' + (d.prof ? '<p class="disc-prof">' + esc(d.prof) + "</p>" : "") +
+        '<p class="fraco">' + lista.length + " questões</p></div></div>" +
         barra(dom, lista.length, d.cor) +
-        '<button class="btn btn-linha" data-acao="estudar-disc" data-id="' + d.id + '">Estudar esta</button></article>';
+        '<div class="disc-rodape"><span class="fraco">' + dom + " dominadas · " + p + '%</span>' +
+        '<button class="disc-ir" data-acao="estudar-disc" data-id="' + d.id + '">Estudar <span aria-hidden="true">→</span></button></div></article>';
     }).join("");
 
     var marcos = NIVEIS.slice(0, 6).map(function (nv, i) {
@@ -227,8 +266,8 @@
         '<p class="lead">' + esc(CFG.subtitulo || "") + "</p>" +
         '<div class="acoes">' + cta + "</div>" +
       "</div>" +
-      '<div class="folha" aria-hidden="true"><p class="folha-titulo">GABARITO</p>' + folha + "</div>" +
-      "</section>" +
+      '<div class="heroi-arte">' + MASCOTE + "</div>" +
+      "</section>" + stats +
 
       '<section class="card trilha"><div class="trilha-topo"><h2>Rumo à colação</h2>' +
         "<p><b>" + S.creditos + "</b> de " + META + " créditos</p></div>" +
@@ -778,4 +817,34 @@
   document.title = CFG.titulo || document.title;
   document.getElementById("marca-texto").textContent = CFG.titulo || "Quiz";
   aplicarTema(); rodape(); render();
+
+  /* ---------- app instalável + offline (PWA) ---------- */
+  var promptInstalar = null;
+  var btnInst = document.getElementById("btn-instalar");
+  function jaInstalado() {
+    return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+  }
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault(); promptInstalar = e;
+    if (btnInst && !jaInstalado()) btnInst.hidden = false;
+  });
+  if (btnInst) btnInst.addEventListener("click", function () {
+    if (!promptInstalar) return;
+    promptInstalar.prompt();
+    promptInstalar.userChoice.then(function () { promptInstalar = null; btnInst.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function () {
+    if (btnInst) btnInst.hidden = true;
+    avisar("App instalado! Procure o ícone Quiz GTI na sua tela.", "conquista");
+  });
+  // iPhone/iPad não têm botão de instalar: mostra a dica no rodapé
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !jaInstalado();
+  if (ios) {
+    var rod = document.getElementById("rodape");
+    if (rod) rod.insertAdjacentHTML("afterbegin", '<p class="dica-ios">Para instalar no iPhone: toque em Compartilhar e depois em "Adicionar à Tela de Início".</p>');
+  }
+  window.addEventListener("offline", function () { avisar("Sem internet: o quiz continua funcionando e seu progresso fica salvo."); });
+  if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+  }
 })();

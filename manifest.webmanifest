@@ -1,0 +1,22 @@
+{
+  "name": "Quiz GTI",
+  "short_name": "Quiz GTI",
+  "description": "Quiz de estudo gamificado para as provas do 5º período de GTI e o ENADE, com questões comentadas.",
+  "lang": "pt-BR",
+  "start_url": "./#inicio",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f1e7",
+  "theme_color": "#1d1b3a",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Estudar", "short_name": "Estudar", "url": "./#estudar", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Desempenho", "short_name": "Desempenho", "url": "./#desempenho", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
